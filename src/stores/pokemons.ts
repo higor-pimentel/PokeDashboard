@@ -3,8 +3,8 @@ import { defineStore } from "pinia";
 import type { Chain, Pokemon, PokemonEvolution } from "@/models/pokemon";
 
 export const usePokemonStore = defineStore("pokemon", () => {
-  const pokeInfo = ref<Pokemon[]>();
-  const pokeEvolutions = ref<Chain[]>();
+  const pokeInfo = ref<Pokemon[]>([]);
+  const pokeEvolutions = ref<Chain[]>([]);
 
   function setPokemon(pokemon: Pokemon[]) {
     pokeInfo.value = [...pokemon];
