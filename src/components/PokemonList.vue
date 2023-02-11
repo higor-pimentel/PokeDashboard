@@ -6,19 +6,19 @@ import { getPokemon, getPokeEvolution } from "../services/pokemon.service";
 const state = reactive({ pokemon: usePokemonStore(), inputPokemon: "" });
 
 function getPokemonName() {
-  console.log(state.inputPokemon);
   if (state.inputPokemon.trim()) {
     getPokemon(state.inputPokemon.toLowerCase()).then((data) => {
       state.pokemon.setPokemon([data]);
-      console.log(state.pokemon.pokeInfo);
+
       getPokeEvolution(data.id).then((evolution) => {
         state.pokemon.setPokemonEvolution(evolution);
-        console.log(state.pokemon.pokeEvolutions);
 
         state.pokemon.pokeEvolutions?.forEach((chain) => {
           getPokemon(chain.species.name).then((evolutionPoke) => {
-            state.pokemon.setPokemon([state.pokemon.pokeInfo, evolutionPoke]);
-            console.log(state.pokemon.pokeInfo);
+            state.pokemon.setPokemon([
+              ...state.pokemon.pokeInfo,
+              evolutionPoke,
+            ]);
           });
         });
       });

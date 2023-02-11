@@ -6,10 +6,10 @@ const state = reactive({ pokemon: usePokemonStore() });
 </script>
 
 <template>
-  <div v-if="!!state.pokemon.pokeInfo?.length">
+  <div v-if="!!state.pokemon.pokeInfo?.length" class="cardsSection">
     <div
-      v-for="(pokemon, index) in state.pokemon.pokeInfo"
-      :key="index"
+      v-for="(pokemon, indexPoke) in state.pokemon.pokeInfo"
+      :key="indexPoke"
       class="card"
       style="width: 18rem"
     >
@@ -25,7 +25,7 @@ const state = reactive({ pokemon: usePokemonStore() });
         <p>
           <a
             data-bs-toggle="collapse"
-            href="#stats"
+            :href="'#stats' + indexPoke"
             role="button"
             aria-expanded="false"
             aria-controls="collapseExample"
@@ -33,7 +33,7 @@ const state = reactive({ pokemon: usePokemonStore() });
             Ver características
           </a>
         </p>
-        <div class="collapse" id="stats">
+        <div class="collapse" :id="'stats' + indexPoke">
           <div class="card card-body">
             <p
               v-for="(stat, index) in pokemon.stats"
@@ -53,5 +53,17 @@ const state = reactive({ pokemon: usePokemonStore() });
 <style>
 .card {
   margin: 2rem;
+}
+
+.cardsSection {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+  .card-body {
+    font-size: 12px;
+  }
 }
 </style>
