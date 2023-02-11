@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Pokemon } from "@/models/pokemon";
 import { usePokemonStore } from "@/stores/pokemons";
 import { reactive } from "vue";
 import { getPokemon, getPokeEvolution } from "../services/pokemon.service";
@@ -16,7 +17,7 @@ function getPokemonName() {
         state.pokemon.pokeEvolutions?.forEach((chain) => {
           getPokemon(chain.species.name).then((evolutionPoke) => {
             state.pokemon.setPokemon([
-              ...state.pokemon.pokeInfo,
+              ...(state.pokemon.pokeInfo as Pokemon[]),
               evolutionPoke,
             ]);
           });
